@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -202,7 +202,7 @@ public class ItemWriterImpl<T> implements ItemWriter<T> {
 		// default encoding for writing to output files - set to UTF-8.
 		private static final String DEFAULT_CHARSET = "UTF-8";
 
-		private FileOutputStream os;
+//		private FileOutputStream os;
 
 		// The bufferedWriter over the file channel that is actually written
 		Writer outputBufferedWriter;
@@ -246,8 +246,8 @@ public class ItemWriterImpl<T> implements ItemWriter<T> {
 			} finally {
 				{
 					try {
-						if (os != null) {
-							os.close();
+						if (outputBufferedWriter != null) {
+							outputBufferedWriter.close();
 						}
 					} catch (IOException ioe) {
 						throw new ItemStreamException("Unable to close the the ItemWriter", ioe);
@@ -280,10 +280,9 @@ public class ItemWriterImpl<T> implements ItemWriter<T> {
 
 			FileUtils.setUpOutputFile(file, restarted, shouldDeleteIfExists);
 
-			os = new FileOutputStream(file.getAbsolutePath(), true);
+//			os = new FileOutputStream(file.getAbsolutePath(), true);
 
-			outputBufferedWriter = new BufferedWriter(outputBufferedWriter);
-
+			outputBufferedWriter = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
 			Assert.state(outputBufferedWriter != null);
 			initialized = true;
 		}
