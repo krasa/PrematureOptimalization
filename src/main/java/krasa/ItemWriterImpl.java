@@ -28,9 +28,6 @@ public class ItemWriterImpl<T> implements ItemWriter<T> {
 
 	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
 
-	private static final String WRITTEN_STATISTICS_NAME = "written";
-
-	private static final String RESTART_DATA_NAME = "current.count";
 
 	private Resource resource;
 
@@ -283,7 +280,6 @@ public class ItemWriterImpl<T> implements ItemWriter<T> {
 //			os = new FileOutputStream(file.getAbsolutePath(), true);
 
 			outputBufferedWriter = new BufferedWriter(new FileWriter(file.getAbsolutePath(), true));
-			Assert.state(outputBufferedWriter != null);
 			initialized = true;
 		}
 
